@@ -9,26 +9,3 @@
   width: 1200px;
   margin: 0 auto;
 }
-
-.header {
-  grid-area: header;
-  background-color: green;
-}
-
-.header img {
-  max-height: 100%;
-}
-
-.nav {
-  grid-area: nav;
-  background-color: burlywood;
-}
-
-.content {
-  grid-area: content;
-  background-color: cornflowerblue;
-}
-
-.content img {
-  max-width: 100%;
-}
