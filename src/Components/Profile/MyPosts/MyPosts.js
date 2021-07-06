@@ -11,9 +11,9 @@ function MyPosts() {
         <button>Add post</button>
       </div>
       <div className="posts">
-        <Post />
-        <Post />
-        <Post />
+        <Post text="bruh" />
+        <Post text="wow" />
+        <Post text="ok" />
       </div>
     </div>
   );
