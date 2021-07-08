@@ -1,20 +1,12 @@
 import React from "react";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPosts from "./MyPosts/MyPosts";
 import classes from "./Profile.module.css";
 
 const Profile = () => {
   return (
     <main className={classes.content}>
-      <div>
-        <img src="assets/space.jpg" alt="" className={classes.profileImg} />
-      </div>
-      <div>
-        <img
-          src="assets/profile-avatar.jpg"
-          alt=""
-          className={classes.avatar}
-        />
-      </div>
+      <ProfileInfo />
       <MyPosts />
     </main>
   );

@@ -1,40 +1,72 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Dialog from "./Dialog/Dialog";
+import Message from "./Message/Message";
 import classes from "./Dialogs.module.css";
-
 const Dialogs = (props) => {
+  let dialogs = [
+    {
+      id: 1,
+      name: "Mike Hawk",
+    },
+    {
+      id: 2,
+      name: "Mel Lester",
+    },
+    {
+      id: 3,
+      name: "Jack Kenoff",
+    },
+    {
+      id: 4,
+      name: "Hue Jass",
+    },
+    {
+      id: 5,
+      name: "Mike Hunt",
+    },
+    {
+      id: 6,
+      name: "Jenny Taila",
+    },
+    {
+      id: 7,
+      name: "Hue G. Rection",
+    },
+  ];
+  let messages = [
+    {
+      id: 1,
+      message: "Hi",
+    },
+    {
+      id: 2,
+      message: "How yo mom doin?",
+    },
+    {
+      id: 3,
+      message: "idk tbh i think u r kul",
+    },
+    {
+      id: 4,
+      message: "i am gae",
+    },
+    {
+      id: 5,
+      message: "ooga booga",
+    },
+  ];
+
+  let dialogElements = dialogs.map((dialog) => (
+    <Dialog id={dialog.id} name={dialog.name} />
+  ));
+  let messageElements = messages.map((message) => (
+    <Message id={message.id} message={message.message} />
+  ));
   return (
     <div className={classes.dialogs}>
-      <div className={classes.dialogsItems}>
-        <div className={classes.dialog + " " + classes.active}>
-          <NavLink to="/dialogs/1">Mike Hawk</NavLink>
-        </div>
-        <div className={classes.dialog}>
-          <NavLink to="/dialogs/2">Mel Lester</NavLink>
-        </div>
-        <div className={classes.dialog}>
-          <NavLink to="/dialogs/3">Jack Kenoff</NavLink>
-        </div>
-        <div className={classes.dialog}>
-          <NavLink to="/dialogs/4">Hue Jass</NavLink>
-        </div>
-        <div className={classes.dialog}>
-          <NavLink to="/dialogs/5">Mike Hunt</NavLink>
-        </div>
-        <div className={classes.dialog}>
-          <NavLink to="/dialogs/6">Mike Oxmaul</NavLink>
-        </div>
-        <div className={classes.dialog}>
-          <NavLink to="/dialogs/7">Lez Bien</NavLink>
-        </div>
-      </div>
-      <div className={classes.messages}>
-        <div className={classes.message}>Hi</div>
-        <div className={classes.message}>How is yo mom?</div>
-        <div className={classes.message}>Bruh</div>
-        <div className={classes.message}>I love koks</div>
-        <div className={classes.message}>flex cringe tbh idk ngl omg</div>
-      </div>
+      <div className={classes.dialogsItems}>{dialogElements}</div>
+      <div className={classes.messages}>{messageElements}</div>
     </div>
   );
 };
