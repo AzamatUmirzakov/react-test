@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
-import classes from "./Dialogs.module.css";
+import styles from "./Dialogs.module.css";
 const Dialogs = (props) => {
   let dialogs = [
     {
@@ -64,9 +64,9 @@ const Dialogs = (props) => {
     <Message id={message.id} message={message.message} />
   ));
   return (
-    <div className={classes.dialogs}>
-      <div className={classes.dialogsItems}>{dialogElements}</div>
-      <div className={classes.messages}>{messageElements}</div>
+    <div className={styles.dialogs}>
+      <div className={styles.dialogsItems}>{dialogElements}</div>
+      <div className={styles.messages}>{messageElements}</div>
     </div>
   );
 };

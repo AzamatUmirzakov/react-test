@@ -1,18 +1,14 @@
 import React from "react";
-import classes from "./ProfileInfo.module.css";
+import styles from "./ProfileInfo.module.css";
 
 const ProfileInfo = (props) => {
   return (
     <div>
       <div>
-        <img src="assets/space.jpg" alt="" className={classes.profileImg} />
+        <img src="assets/space.jpg" alt="" className={styles.profileImg} />
       </div>
-      <div className={classes.description}>
-        <img
-          src="assets/profile-avatar.jpg"
-          alt=""
-          className={classes.avatar}
-        />
+      <div className={styles.description}>
+        <img src="assets/profile-avatar.jpg" alt="" className={styles.avatar} />
       </div>
     </div>
   );

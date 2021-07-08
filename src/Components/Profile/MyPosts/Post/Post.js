@@ -1,9 +1,9 @@
 import React from "react";
-import classes from "./Post.module.css";
+import styles from "./Post.module.css";
 
 function Post(props) {
   return (
-    <div className={classes.item}>
+    <div className={styles.item}>
       <img src="assets/profile-avatar.jpg" />
       {props.text}
     </div>
