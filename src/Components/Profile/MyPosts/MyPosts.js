@@ -2,33 +2,22 @@ import React from "react";
 import Post from "./Post/Post";
 import styles from "./MyPosts.module.css";
 
-function MyPosts() {
-  let posts = [
-    {
-      id: 1,
-      text: "bruh",
-    },
-    {
-      id: 2,
-      text: "wow",
-    },
-    {
-      id: 3,
-      text: "ok",
-    },
-  ];
+function MyPosts({ posts, addPost }) {
+  let newPostText = React.createRef();
+  let handleClick = (event) => {
+    let text = newPostText.current.value;
+    newPostText.current.value = "";
+    addPost(text);
+  };
+  let postElements = posts.map((post) => <Post text={post.text} />);
   return (
     <div className={styles.postsBlock}>
       <h3>My posts</h3>
       <div className={styles.newPost}>
-        <textarea name="" id="" cols="30" rows="10"></textarea>
-        <button>Add post</button>
+        <textarea name="" ref={newPostText} cols="30" rows="10"></textarea>
+        <button onClick={handleClick}>Add post</button>
       </div>
-      <div className={styles.posts}>
-        {posts.map((post) => (
-          <Post text={post.text} />
-        ))}
-      </div>
+      <div className={styles.posts}>{postElements}</div>
     </div>
   );
 }
