@@ -1,4 +1,8 @@
-import render from "../render";
+// render function placeholder
+let render = (state) => {
+  console.log("seems like subscribtion didn't work");
+};
+
 let state = {
   profilePage: {
     posts: [
@@ -15,6 +19,7 @@ let state = {
         text: "ok",
       },
     ],
+    newPostValue: "What's on your mind?",
   },
   dialogsPage: {
     dialogs: [
@@ -69,6 +74,7 @@ let state = {
         message: "ooga booga",
       },
     ],
+    newMessageValue: "New message",
   },
   sidebar: {
     friends: [
@@ -91,14 +97,43 @@ let state = {
   },
 };
 
-const addPost = (post) => {
+const addPost = () => {
   state.profilePage.posts.push({
-    text: post,
+    text: state.profilePage.newPostValue,
     id: state.profilePage.posts.length + 1,
   });
-  render(state, addPost);
+  render(state);
+  changeNewPostValue("");
+};
+
+const changeNewPostValue = (value) => {
+  state.profilePage.newPostValue = value;
+  render(state);
+};
+
+const addMessage = () => {
+  state.dialogsPage.messages.push({
+    id: state.dialogsPage.messages.length + 1,
+    message: state.dialogsPage.newMessageValue,
+  });
+  changeNewMessageValue("");
+  render(state);
+};
+
+const changeNewMessageValue = (value) => {
+  state.dialogsPage.newMessageValue = value;
+  render(state);
+};
+
+const subscribe = (observer) => {
+  render = observer;
 };
 
 export default state;
-
-export { addPost };
+export {
+  addPost,
+  changeNewPostValue,
+  addMessage,
+  changeNewMessageValue,
+  subscribe,
+};
