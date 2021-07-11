@@ -1,2 +1,17 @@
-.dialog {
+.dialog a {
+  font-family: "Roboto Regular";
+  font-size: 13px;
+  color: #777777;
+  display: block;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.dialog a.active {
+  color: #fff;
+  background-color: #444446;
+}
+
+.dialog a:hover {
+  background-color: #444446;
 }

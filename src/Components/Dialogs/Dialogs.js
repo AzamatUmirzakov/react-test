@@ -4,19 +4,23 @@ import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import styles from "./Dialogs.module.css";
 const Dialogs = (props) => {
-  let dialogElements = props.state.dialogs.map((dialog) => (
-    <Dialog id={dialog.id} name={dialog.name} />
-  ));
-  let messageElements = props.state.messages.map((message) => (
-    <Message id={message.id} message={message.message} />
-  ));
+  let dialogElements = props.store
+    .getState()
+    .dialogsPage.dialogs.map((dialog) => (
+      <Dialog id={dialog.id} name={dialog.name} />
+    ));
+  let messageElements = props.store
+    .getState()
+    .dialogsPage.messages.map((message) => (
+      <Message id={message.id} message={message.message} />
+    ));
 
   let newMessage = React.createRef();
   let handleClick = (event) => {
-    props.addMessage();
+    props.store.addMessage();
   };
   let handleChange = (event) => {
-    props.changeNewMessageValue(event.target.value);
+    props.store.changeNewMessageValue(event.target.value);
   };
   return (
     <div className={styles.dialogs}>
@@ -29,7 +33,7 @@ const Dialogs = (props) => {
             ref={newMessage}
             cols="30"
             rows="10"
-            value={props.state.newMessageValue}
+            value={props.store.getState().newMessageValue}
             onChange={handleChange}
           ></textarea>
           <button onClick={handleClick}>send</button>

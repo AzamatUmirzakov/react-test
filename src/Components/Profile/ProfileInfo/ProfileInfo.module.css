@@ -4,8 +4,44 @@
 
 .avatar {
   max-width: 200px;
+  border-radius: 15px;
+}
+
+.currentUser {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 30% 1fr;
 }
 
 .description {
-  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  font-family: "Roboto Regular";
+  color: #777777;
+  font-weight: normal;
+}
+
+.description h1 {
+  font-size: 70px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.description h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.description a {
+  color: #777;
+  font-size: 20px;
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.description a:hover {
+  color: #fff;
 }

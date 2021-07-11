@@ -2,11 +2,52 @@
   padding: 10px;
 }
 
+.postsBlock h3 {
+  font-family: "Roboto Regular";
+  font-size: 30px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.newPost {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .newPost textarea {
   display: block;
   margin-bottom: 10px;
+  border: none;
+  outline: none;
+  background: #444444;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  color: gray;
+  transition: all 0.3s ease-in-out;
+  resize: none;
+}
+
+.newPost textarea:hover,
+.newPost textarea:focus {
+  background: #555;
+  color: #fff;
+}
+
+.newPost button {
+  align-self: flex-end;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #fff;
+  background: #444444;
+  border: none;
+  outline: none;
+  border-radius: 10px;
 }
 
 .posts {
   margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 15px;
 }

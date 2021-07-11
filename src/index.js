@@ -1,11 +1,5 @@
 import { subscribe } from "./redux/state";
-import state from "./redux/state";
-import {
-  addPost,
-  changeNewPostValue,
-  addMessage,
-  changeNewMessageValue,
-} from "./redux/state";
+import store from "./redux/state";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Route, BrowserRouter } from "react-router-dom";
@@ -23,49 +17,20 @@ function App(props) {
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
-        <Navbar state={props.state.sidebar} />
+        <Navbar state={props.store.getState().sidebar} />
         <div className="app-wrapper-content">
-          <Route
-            render={() => (
-              <Profile
-                state={props.state.profilePage}
-                addPost={props.addPost}
-                changeNewPostValue={props.changeNewPostValue}
-              />
-            )}
-            path="/profile"
-          />
-          <Route
-            render={() => (
-              <Dialogs
-                state={props.state.dialogsPage}
-                addMessage={addMessage}
-                changeNewMessageValue={changeNewMessageValue}
-              />
-            )}
-            path="/dialogs"
-          />
+          <Route render={() => <Profile store={store} />} path="/profile" />
+          <Route render={() => <Dialogs store={store} />} path="/dialogs" />
         </div>
       </div>
     </BrowserRouter>
   );
 }
 
-window.state = state;
-
-let render = (state) => {
-  ReactDOM.render(
-    <App
-      state={state}
-      addPost={addPost}
-      changeNewPostValue={changeNewPostValue}
-      addMessage={addMessage}
-      changeNewMessageValue={changeNewMessageValue}
-    />,
-    document.querySelector("#root")
-  );
+let render = (store) => {
+  ReactDOM.render(<App store={store} />, document.querySelector("#root"));
 };
 
 subscribe(render);
 
-render(state, addPost, changeNewPostValue, addMessage, changeNewMessageValue);
+render(store);

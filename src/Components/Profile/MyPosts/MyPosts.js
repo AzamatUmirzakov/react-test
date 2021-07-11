@@ -2,15 +2,18 @@ import React from "react";
 import Post from "./Post/Post";
 import styles from "./MyPosts.module.css";
 
-function MyPosts({ posts, addPost, changeNewPostValue, newPostValue }) {
+function MyPosts(props) {
   let newPostText = React.createRef();
   let handleClick = (event) => {
-    addPost();
+    props.store.addPost();
+    console.log(props.store);
   };
   let handleChange = (event) => {
-    changeNewPostValue(event.target.value);
+    props.store.changeNewPostValue(event.target.value);
   };
-  let postElements = posts.map((post) => <Post text={post.text} />);
+  let postElements = props.store
+    .getState()
+    .profilePage.posts.map((post) => <Post text={post.text} />);
   return (
     <div className={styles.postsBlock}>
       <h3>My posts</h3>
@@ -20,7 +23,7 @@ function MyPosts({ posts, addPost, changeNewPostValue, newPostValue }) {
           ref={newPostText}
           cols="30"
           rows="10"
-          value={newPostValue}
+          value={props.store.getState().newPostValue}
           onChange={handleChange}
         ></textarea>
         <button onClick={handleClick}>Add post</button>
