@@ -1,4 +1,3 @@
-import { subscribe } from "./redux/state";
 import store from "./redux/state";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -21,6 +20,9 @@ function App(props) {
         <div className="app-wrapper-content">
           <Route render={() => <Profile store={store} />} path="/profile" />
           <Route render={() => <Dialogs store={store} />} path="/dialogs" />
+          <Route render={() => <News store={store} />} path="/news" />
+          <Route render={() => <Music store={store} />} path="/music" />
+          <Route render={() => <Settings store={store} />} path="/settings" />
         </div>
       </div>
     </BrowserRouter>
@@ -31,6 +33,6 @@ let render = (store) => {
   ReactDOM.render(<App store={store} />, document.querySelector("#root"));
 };
 
-subscribe(render);
+store.subcribe(render);
 
 render(store);

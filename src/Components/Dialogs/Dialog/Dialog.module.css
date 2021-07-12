@@ -1,3 +1,7 @@
+.dialog:not(:last-of-type) {
+  margin-bottom: 5px;
+}
+
 .dialog a {
   font-family: "Roboto Regular";
   font-size: 13px;
@@ -12,6 +16,8 @@
   background-color: #444446;
 }
 
-.dialog a:hover {
+.dialog a:hover,
+.dialog a:focus {
   background-color: #444446;
+  outline: none;
 }

@@ -4,6 +4,10 @@
   padding: 20px;
 }
 
+.item:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+
 .item a {
   color: #777777;
   text-decoration: none;
@@ -14,8 +18,10 @@
   border-radius: 5px;
 }
 
-.item a:hover {
+.item a:hover,
+.item a:focus {
   background-color: #333336;
+  outline: none;
 }
 
 .item a.active {

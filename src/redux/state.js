@@ -1,6 +1,6 @@
 let store = {
-  // render function placeholder
-  render(store) {
+  // subscriber placeholder
+  _subscriber(store) {
     console.log("seems like subscribtion didn't work");
   },
   _state: {
@@ -122,12 +122,12 @@ let store = {
       text: this._state.profilePage.newPostValue,
       id: this._state.profilePage.posts.length + 1,
     });
-    this.render(this);
+    this._subscriber(this);
     this.changeNewPostValue("");
   },
   changeNewPostValue(value) {
     this._state.profilePage.newPostValue = value;
-    this.render(this);
+    this._subscriber(this);
   },
   addMessage() {
     this._state.dialogsPage.messages.push({
@@ -135,17 +135,15 @@ let store = {
       message: this._state.dialogsPage.newMessageValue,
     });
     this.changeNewMessageValue("");
-    this.render(this);
+    this._subscriber(this);
   },
   changeNewMessageValue(value) {
     this._state.dialogsPage.newMessageValue = value;
-    this.render(this);
+    this._subscriber(this);
+  },
+  subcribe(observer) {
+    this._subscriber = observer;
   },
 };
 
-const subscribe = (observer) => {
-  store.render = observer;
-};
-
 export default store;
-export { subscribe };

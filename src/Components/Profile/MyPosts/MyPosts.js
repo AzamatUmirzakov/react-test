@@ -6,7 +6,6 @@ function MyPosts(props) {
   let newPostText = React.createRef();
   let handleClick = (event) => {
     props.store.addPost();
-    console.log(props.store);
   };
   let handleChange = (event) => {
     props.store.changeNewPostValue(event.target.value);
@@ -23,7 +22,7 @@ function MyPosts(props) {
           ref={newPostText}
           cols="30"
           rows="10"
-          value={props.store.getState().newPostValue}
+          value={props.store.getState().profilePage.newPostValue}
           onChange={handleChange}
         ></textarea>
         <button onClick={handleClick}>Add post</button>
