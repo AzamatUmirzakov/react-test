@@ -6,8 +6,12 @@ import styles from "./Profile.module.css";
 const Profile = (props) => {
   return (
     <main className={styles.content}>
-      <ProfileInfo user={props.store.getState().profilePage.currentUser} />
-      <MyPosts store={props.store} />
+      <ProfileInfo user={props.profilePage.currentUser} />
+      <MyPosts
+        posts={props.profilePage.posts}
+        dispatch={props.dispatch}
+        newPostValue={props.profilePage.newPostValue}
+      />
     </main>
   );
 };

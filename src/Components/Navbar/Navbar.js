@@ -7,7 +7,7 @@ const Navbar = (props) => {
     <div className={styles.nav}>
       <nav>
         <div className={styles.item}>
-          <NavLink to="/profile" activeClassName={styles.active}>
+          <NavLink to="/" exact activeClassName={styles.active}>
             Profile
           </NavLink>
         </div>

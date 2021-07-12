@@ -1,8 +1,31 @@
+const ADD_POST = "add-post";
+const UPDATE_NEW_POST = "update-new-post";
+const ADD_MESSAGE = "add-message";
+const UPDATE_NEW_MESSAGE = "update-new-message";
+const addPostActionCreator = () => ({
+  type: ADD_POST,
+});
+
+const updateNewPostValueActionCreator = (value) => ({
+  type: UPDATE_NEW_POST,
+  value: value,
+});
+
+const addMessageActionCreator = () => ({
+  type: ADD_MESSAGE,
+});
+
+const updateNewMessageValueActionCreator = (value) => ({
+  type: UPDATE_NEW_MESSAGE,
+  value: value,
+});
+
 let store = {
   // subscriber placeholder
   _subscriber(store) {
     console.log("seems like subscribtion didn't work");
   },
+  // app state
   _state: {
     profilePage: {
       currentUser: {
@@ -37,7 +60,7 @@ let store = {
           text: "ok",
         },
       ],
-      newPostValue: "What's on your mind?",
+      newPostValue: "",
     },
     dialogsPage: {
       dialogs: [
@@ -92,7 +115,7 @@ let store = {
           message: "ooga booga",
         },
       ],
-      newMessageValue: "New message",
+      newMessageValue: "",
     },
     sidebar: {
       friends: [
@@ -114,32 +137,41 @@ let store = {
       ],
     },
   },
+
+  dispatch(action) {
+    switch (action.type) {
+      case ADD_POST:
+        this._state.profilePage.posts.push({
+          text: this._state.profilePage.newPostValue,
+          id: this._state.profilePage.posts.length + 1,
+        });
+        this._subscriber(this);
+        this.dispatch(updateNewPostValueActionCreator(""));
+        break;
+      case UPDATE_NEW_POST:
+        this._state.profilePage.newPostValue = action.value;
+        this._subscriber(this);
+        break;
+      case ADD_MESSAGE:
+        this._state.dialogsPage.messages.push({
+          id: this._state.dialogsPage.messages.length + 1,
+          message: this._state.dialogsPage.newMessageValue,
+        });
+        this.dispatch(updateNewMessageValueActionCreator(""));
+        this._subscriber(this);
+        break;
+      case UPDATE_NEW_MESSAGE:
+        this._state.dialogsPage.newMessageValue = action.value;
+        this._subscriber(this);
+        break;
+      default:
+        console.log("no such event type");
+        return null;
+    }
+  },
+
   getState() {
     return this._state;
-  },
-  addPost() {
-    this._state.profilePage.posts.push({
-      text: this._state.profilePage.newPostValue,
-      id: this._state.profilePage.posts.length + 1,
-    });
-    this._subscriber(this);
-    this.changeNewPostValue("");
-  },
-  changeNewPostValue(value) {
-    this._state.profilePage.newPostValue = value;
-    this._subscriber(this);
-  },
-  addMessage() {
-    this._state.dialogsPage.messages.push({
-      id: this._state.dialogsPage.messages.length + 1,
-      message: this._state.dialogsPage.newMessageValue,
-    });
-    this.changeNewMessageValue("");
-    this._subscriber(this);
-  },
-  changeNewMessageValue(value) {
-    this._state.dialogsPage.newMessageValue = value;
-    this._subscriber(this);
   },
   subcribe(observer) {
     this._subscriber = observer;
@@ -147,3 +179,9 @@ let store = {
 };
 
 export default store;
+export {
+  addPostActionCreator,
+  updateNewPostValueActionCreator,
+  addMessageActionCreator,
+  updateNewMessageValueActionCreator,
+};

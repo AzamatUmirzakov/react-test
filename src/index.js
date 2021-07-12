@@ -6,9 +6,9 @@ import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
 import Profile from "./Components/Profile/Profile";
 import Dialogs from "./Components/Dialogs/Dialogs";
-import News from "./Components/News/News";
-import Music from "./Components/Music/Music";
-import Settings from "./Components/Settings/Settings";
+// import News from "./Components/News/News";
+// import Music from "./Components/Music/Music";
+// import Settings from "./Components/Settings/Settings";
 import "./style.css";
 
 function App(props) {
@@ -18,11 +18,25 @@ function App(props) {
         <Header />
         <Navbar state={props.store.getState().sidebar} />
         <div className="app-wrapper-content">
-          <Route render={() => <Profile store={store} />} path="/profile" />
-          <Route render={() => <Dialogs store={store} />} path="/dialogs" />
-          <Route render={() => <News store={store} />} path="/news" />
-          <Route render={() => <Music store={store} />} path="/music" />
-          <Route render={() => <Settings store={store} />} path="/settings" />
+          <Route
+            render={() => (
+              <Profile
+                profilePage={props.store.getState().profilePage}
+                dispatch={props.store.dispatch.bind(props.store)}
+              />
+            )}
+            path="/"
+            exact
+          />
+          <Route
+            render={() => (
+              <Dialogs
+                dialogsPage={props.store.getState().dialogsPage}
+                dispatch={props.store.dispatch.bind(props.store)}
+              />
+            )}
+            path="/dialogs"
+          />
         </div>
       </div>
     </BrowserRouter>

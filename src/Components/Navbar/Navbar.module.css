@@ -26,4 +26,6 @@
 
 .item a.active {
   color: white;
+  background-color: #333336;
+  outline: none;
 }

@@ -1,18 +1,21 @@
 import React from "react";
 import Post from "./Post/Post";
+import {
+  addPostActionCreator,
+  updateNewPostValueActionCreator,
+} from "../../../redux/state";
 import styles from "./MyPosts.module.css";
 
 function MyPosts(props) {
   let newPostText = React.createRef();
   let handleClick = (event) => {
-    props.store.addPost();
+    props.dispatch(addPostActionCreator());
   };
   let handleChange = (event) => {
-    props.store.changeNewPostValue(event.target.value);
+    let action = updateNewPostValueActionCreator(event.target.value);
+    props.dispatch(action);
   };
-  let postElements = props.store
-    .getState()
-    .profilePage.posts.map((post) => <Post text={post.text} />);
+  let postElements = props.posts.map((post) => <Post text={post.text} />);
   return (
     <div className={styles.postsBlock}>
       <h3>My posts</h3>
@@ -22,8 +25,9 @@ function MyPosts(props) {
           ref={newPostText}
           cols="30"
           rows="10"
-          value={props.store.getState().profilePage.newPostValue}
+          value={props.newPostValue}
           onChange={handleChange}
+          placeholder="What's on your mind?"
         ></textarea>
         <button onClick={handleClick}>Add post</button>
       </div>
