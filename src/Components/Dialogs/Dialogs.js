@@ -5,7 +5,7 @@ import Message from "./Message/Message";
 import {
   addMessageActionCreator,
   updateNewMessageValueActionCreator,
-} from "../../redux/state";
+} from "../../redux/dialogsReducer";
 import styles from "./Dialogs.module.css";
 const Dialogs = (props) => {
   let dialogElements = props.dialogsPage.dialogs.map((dialog) => (

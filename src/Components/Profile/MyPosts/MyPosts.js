@@ -3,7 +3,7 @@ import Post from "./Post/Post";
 import {
   addPostActionCreator,
   updateNewPostValueActionCreator,
-} from "../../../redux/state";
+} from "../../../redux/profileReducer";
 import styles from "./MyPosts.module.css";
 
 function MyPosts(props) {
