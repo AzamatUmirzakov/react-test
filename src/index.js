@@ -1,11 +1,11 @@
-import store from "./redux/store";
+import store from "./redux/reduxStore";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Route, BrowserRouter } from "react-router-dom";
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
 import Profile from "./Components/Profile/Profile";
-import Dialogs from "./Components/Dialogs/Dialogs";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 // import News from "./Components/News/News";
 // import Music from "./Components/Music/Music";
 // import Settings from "./Components/Settings/Settings";
@@ -19,22 +19,12 @@ function App(props) {
         <Navbar state={props.store.getState().sidebar} />
         <div className="app-wrapper-content">
           <Route
-            render={() => (
-              <Profile
-                profilePage={props.store.getState().profilePage}
-                dispatch={props.store.dispatch.bind(props.store)}
-              />
-            )}
+            render={() => <Profile store={props.store} />}
             path="/"
             exact
           />
           <Route
-            render={() => (
-              <Dialogs
-                dialogsPage={props.store.getState().dialogsPage}
-                dispatch={props.store.dispatch.bind(props.store)}
-              />
-            )}
+            render={() => <DialogsContainer store={props.store} />}
             path="/dialogs"
           />
         </div>
@@ -47,6 +37,6 @@ let render = (store) => {
   ReactDOM.render(<App store={store} />, document.querySelector("#root"));
 };
 
-store.subcribe(render);
+store.subscribe(() => render(store));
 
 render(store);

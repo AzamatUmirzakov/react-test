@@ -2,25 +2,20 @@ import React from "react";
 import { Route } from "react-router-dom";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
-import {
-  addMessageActionCreator,
-  updateNewMessageValueActionCreator,
-} from "../../redux/dialogsReducer";
 import styles from "./Dialogs.module.css";
 const Dialogs = (props) => {
-  let dialogElements = props.dialogsPage.dialogs.map((dialog) => (
+  let dialogElements = props.state.dialogs.map((dialog) => (
     <Dialog id={dialog.id} name={dialog.name} />
   ));
-  let messageElements = props.dialogsPage.messages.map((message) => (
+  let messageElements = props.state.messages.map((message) => (
     <Message id={message.id} message={message.message} />
   ));
 
-  let newMessage = React.createRef();
-  let handleClick = (event) => {
-    props.dispatch(addMessageActionCreator());
+  let handleClick = () => {
+    props.addMessage();
   };
   let handleChange = (event) => {
-    props.dispatch(updateNewMessageValueActionCreator(event.target.value));
+    props.updateNewMessageValue(event.target.value);
   };
   return (
     <div className={styles.dialogs}>
@@ -34,10 +29,9 @@ const Dialogs = (props) => {
               <div className={styles.newMessage}>
                 <textarea
                   name=""
-                  ref={newMessage}
                   cols="30"
                   rows="10"
-                  value={props.dialogsPage.newMessageValue}
+                  value={props.state.newMessageValue}
                   onChange={handleChange}
                   placeholder="New message"
                 ></textarea>
