@@ -2,6 +2,7 @@ import store from "./redux/reduxStore";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Route, BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
 import Profile from "./Components/Profile/Profile";
@@ -13,30 +14,22 @@ import "./style.css";
 
 function App(props) {
   return (
-    <BrowserRouter>
-      <div className="app-wrapper">
-        <Header />
-        <Navbar state={props.store.getState().sidebar} />
-        <div className="app-wrapper-content">
-          <Route
-            render={() => <Profile store={props.store} />}
-            path="/"
-            exact
-          />
-          <Route
-            render={() => <DialogsContainer store={props.store} />}
-            path="/dialogs"
-          />
-        </div>
+    <div className="app-wrapper">
+      <Header />
+      <Navbar />
+      <div className="app-wrapper-content">
+        <Route render={() => <Profile />} path="/" exact />
+        <Route render={() => <DialogsContainer />} path="/dialogs" />
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 
-let render = (store) => {
-  ReactDOM.render(<App store={store} />, document.querySelector("#root"));
-};
-
-store.subscribe(() => render(store));
-
-render(store);
+ReactDOM.render(
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>,
+  document.querySelector("#root")
+);

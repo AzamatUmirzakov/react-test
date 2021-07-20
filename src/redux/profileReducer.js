@@ -1,3 +1,4 @@
+// import cloneDeep from "./cloneDeep";
 const ADD_POST = "add-post";
 const UPDATE_NEW_POST = "update-new-post";
 const addPostActionCreator = () => ({
@@ -45,23 +46,35 @@ const initialState = {
 };
 
 const profileReducer = (state = initialState, action) => {
-  let newState = {};
-  newState = Object.assign(newState, state);
+  // let newState;
   switch (action.type) {
     case ADD_POST:
-      newState.posts.push({
-        text: newState.newPostValue,
-        id: newState.posts.length + 1,
-      });
-      newState.newPostValue = "";
-      break;
+      // newState = cloneDeep(state);
+      // newState.posts.push({
+      //   text: newState.newPostValue,
+      //   id: newState.posts.length + 1,
+      // });
+      // newState.newPostValue = "";
+      // break;
+      return {
+        ...state,
+        posts: [
+          ...state.posts,
+          { text: state.newPostValue, id: state.posts.length + 1 },
+        ],
+        newPostValue: "",
+      };
     case UPDATE_NEW_POST:
-      newState.newPostValue = action.value;
-      break;
+      // newState = cloneDeep(state);
+      // newState.newPostValue = action.value;
+      return {
+        ...state,
+        newPostValue: action.value,
+      };
+    // break;
     default:
-      return newState;
+      return state;
   }
-  return newState;
 };
 
 export default profileReducer;
