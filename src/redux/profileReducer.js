@@ -1,6 +1,6 @@
 // import cloneDeep from "./cloneDeep";
-const ADD_POST = "add-post";
-const UPDATE_NEW_POST = "update-new-post";
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST = "UPDATE-NEW-POST";
 const addPostActionCreator = () => ({
   type: ADD_POST,
 });

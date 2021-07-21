@@ -1,0 +1,67 @@
+.users {
+  display: grid;
+  row-gap: 20px;
+  padding: 20px 10px;
+}
+
+.user {
+  padding: 20px 40px;
+  background: #444446;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  column-gap: 20px;
+  font-family: "Roboto Regular";
+  color: #fff;
+}
+
+.userInfo {
+  display: grid;
+  grid-template-areas:
+    "user-name user-location"
+    "user-status user-status";
+  grid-template-columns: 1fr 200px;
+  grid-template-rows: min-content;
+  row-gap: 10px;
+}
+
+.userName {
+  grid-area: user-name;
+}
+
+.userStatus {
+  grid-area: user-status;
+}
+
+.userLocation {
+  grid-area: user-location;
+  text-align: right;
+}
+
+.userProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userAvatar {
+  max-width: 100px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.followButton {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: "Roboto Regular";
+  color: #777777;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.followButton:hover {
+  color: #fff;
+  background: #555557;
+}

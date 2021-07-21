@@ -1,7 +1,5 @@
-import cloneDeep from "./cloneDeep";
-
-const ADD_MESSAGE = "add-message";
-const UPDATE_NEW_MESSAGE = "update-new-message";
+const ADD_MESSAGE = "ADD-MESSAGE";
+const UPDATE_NEW_MESSAGE = "UPDATE-NEW-MESSAGE";
 
 const addMessageActionCreator = () => ({
   type: ADD_MESSAGE,
@@ -69,22 +67,26 @@ const initialState = {
 };
 
 const dialogsReducer = (state = initialState, action) => {
-  let newState = cloneDeep(state);
   switch (action.type) {
     case ADD_MESSAGE:
-      newState.messages.push({
-        id: newState.messages.length + 1,
-        message: newState.newMessageValue,
-      });
+      let newMessage = {
+        id: state.messages.length + 1,
+        message: state.newMessageValue,
+      };
 
-      newState.newMessageValue = "";
-      return newState;
+      return {
+        ...state,
+        messages: [...state.messages, newMessage],
+        newMessageValue: "",
+      };
 
     case UPDATE_NEW_MESSAGE:
-      newState.newMessageValue = action.value;
-      return newState;
+      return {
+        ...state,
+        newMessageValue: action.value,
+      };
     default:
-      return newState;
+      return state;
   }
 };
 
