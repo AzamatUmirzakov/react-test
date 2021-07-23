@@ -1,108 +1,90 @@
 import React from "react";
+import userFallback from "../../assets/images/user-fallback.png";
 import styles from "./Users.module.css";
 
-const Users = (props) => {
-  if (!props.users.length)
-    props.setUsers([
-      {
-        id: 1,
-        fullName: "Azamat U.",
-        status: "I am beautiful butterfly",
-        location: {
-          city: "Shymkent",
-          country: "Kazakhstan",
-        },
-        followed: true,
-        avatarUrl: "./assets/profile-avatar.jpg",
-      },
-      {
-        id: 2,
-        fullName: "Mike H",
-        status: "is big",
-        location: {
-          city: "Penistone",
-          country: "England",
-        },
-        followed: false,
-        avatarUrl: "./assets/profile-avatar.jpg",
-      },
-      {
-        id: 3,
-        fullName: "Hue G. Rection",
-        status: "I love books",
-        location: {
-          city: "Rome",
-          country: "Italy",
-        },
-        followed: false,
-        avatarUrl: "./assets/profile-avatar.jpg",
-      },
-      {
-        id: 4,
-        fullName: "John Snow",
-        status: "Honor or duty?",
-        location: {
-          city: "The Wall",
-          country: "Westeros",
-        },
-        followed: true,
-        avatarUrl: "./assets/profile-avatar.jpg",
-      },
-      {
-        id: 5,
-        fullName: "Geralt of Rivia",
-        status: "Neutral.",
-        location: {
-          city: "Wyzima",
-          country: "Temeria",
-        },
-        followed: true,
-        avatarUrl: "./assets/profile-avatar.jpg",
-      },
-    ]);
-
-  return (
-    <div className={styles.users}>
-      {props.users.map((user) => (
-        <div key={user.id} className={styles.user}>
-          <div className={styles.userProfile}>
-            <img
-              alt="avatar"
-              className={styles.userAvatar}
-              src={user.avatarUrl}
-            />
-            {user.followed ? (
-              <button
-                className={styles.followButton}
-                onClick={() => {
-                  props.unfollow(user.id);
-                }}
-              >
-                Unfollow
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  props.follow(user.id);
-                }}
-                className={styles.followButton}
-              >
-                Follow
-              </button>
-            )}
-          </div>
-          <div className={styles.userInfo}>
-            <p className={styles.userName}>{user.fullName}</p>
-            <p className={styles.userStatus}>{user.status}</p>
-            <p className={styles.userLocation}>
+class Users extends React.Component {
+  componentDidMount() {
+    let data = this.getUsers(this.props.currentPage);
+    data.then((value) => {
+      this.props.setTotalCount(value.totalCount);
+    });
+  }
+  getUsers = async (pageNumber) => {
+    const url = new URL(
+      "users",
+      "https://social-network.samuraijs.com/api/1.0/"
+    );
+    url.searchParams.set("page", pageNumber);
+    url.searchParams.set("count", this.props.pageSize);
+    const response = await fetch(url);
+    const data = await response.json();
+    this.props.setUsers(data.items);
+    this.props.setCurrentPage(pageNumber);
+    return data;
+  };
+  render() {
+    const pagesCount = Math.ceil(this.props.totalCount / this.props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+      pages.push(
+        <span
+          className={
+            this.props.currentPage === i
+              ? `${styles.pageLink} ${styles.selected}`
+              : styles.pageLink
+          }
+          onClick={() => {
+            this.getUsers(i);
+          }}
+        >
+          {i}
+        </span>
+      );
+    }
+    return (
+      <div className={styles.users}>
+        <div className={styles.usersPagination}>{pages}</div>
+        {this.props.users.map((user) => (
+          <div key={user.id} className={styles.user}>
+            <div className={styles.userProfile}>
+              <img
+                alt="avatar"
+                className={styles.userAvatar}
+                src={user.photos.small ? user.photos.small : userFallback}
+              />
+              {user.followed ? (
+                <button
+                  className={styles.followButton}
+                  onClick={() => {
+                    this.props.unfollow(user.id);
+                  }}
+                >
+                  Unfollow
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    this.props.follow(user.id);
+                  }}
+                  className={styles.followButton}
+                >
+                  Follow
+                </button>
+              )}
+            </div>
+            <div className={styles.userInfo}>
+              <p className={styles.userName}>{user.name}</p>
+              <p className={styles.userStatus}>{user.status}</p>
+              {/* <p className={styles.userLocation}>
               <span>{user.location.city}, </span>
               <span>{user.location.country}</span>
-            </p>
+            </p> */}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+        ))}
+      </div>
+    );
+  }
+}
 
 export default Users;

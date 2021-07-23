@@ -15,12 +15,14 @@ const ProfileInfo = (props) => {
           <a
             target="_blank"
             href={`mailto:${props.user.email}`}
+            rel="noreferrer"
             className={styles.email}
           >
             {props.user.email}
           </a>
           <a
             target="_blank"
+            rel="noreferrer"
             href={props.user.website}
             className={styles.website}
           >

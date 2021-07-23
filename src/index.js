@@ -19,7 +19,7 @@ function App(props) {
       <Header />
       <Navbar />
       <div className="app-wrapper-content">
-        <Route ren  der={() => <Profile />} path="/" exact />
+        <Route render={() => <Profile />} path="/" exact />
         <Route render={() => <DialogsContainer />} path="/dialogs" />
         <Route render={() => <UsersContainer />} path="/users" />
       </div>
