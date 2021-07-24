@@ -6,8 +6,10 @@ import {
   setUsersActionCreator,
   setCurrentPageActionCreator,
   setTotalCountActionCreator,
+  setIsFetchingActionCreator,
 } from "../../redux/usersReducer";
 import Users from "./Users";
+import Preloader from "../../common/Preloader/Preloader";
 
 class UsersAPIComponent extends React.Component {
   getUsers = async (pageNumber) => {
@@ -17,8 +19,10 @@ class UsersAPIComponent extends React.Component {
     );
     url.searchParams.set("page", pageNumber);
     url.searchParams.set("count", this.props.pageSize);
+    this.props.setIsFetching(true);
     const response = await fetch(url);
     const data = await response.json();
+    this.props.setIsFetching(false);
     this.props.setUsers(data.items);
     this.props.setCurrentPage(pageNumber);
     return data;
@@ -31,15 +35,18 @@ class UsersAPIComponent extends React.Component {
   }
   render() {
     return (
-      <Users
-        totalCount={this.props.totalCount}
-        pageSize={this.props.pageSize}
-        currentPage={this.props.currentPage}
-        users={this.props.users}
-        follow={this.props.follow}
-        unfollow={this.props.unfollow}
-        onPageChanged={this.getUsers}
-      />
+      <>
+        {this.props.isFetching ? <Preloader /> : null}
+        <Users
+          totalCount={this.props.totalCount}
+          pageSize={this.props.pageSize}
+          currentPage={this.props.currentPage}
+          users={this.props.users}
+          follow={this.props.follow}
+          unfollow={this.props.unfollow}
+          onPageChanged={this.getUsers}
+        />
+      </>
     );
   }
 }
@@ -49,6 +56,7 @@ const mapStateToProps = (state) => ({
   pageSize: state.usersPage.pageSize,
   totalCount: state.usersPage.totalCount,
   currentPage: state.usersPage.currentPage,
+  isFetching: state.usersPage.isFetching,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -66,6 +74,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setTotalCount: (totalCount) => {
     dispatch(setTotalCountActionCreator(totalCount));
+  },
+  setIsFetching: (isFetching) => {
+    dispatch(setIsFetchingActionCreator(isFetching));
   },
 });
 

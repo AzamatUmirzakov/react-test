@@ -10,7 +10,7 @@ let reducers = combineReducers({
 });
 
 const store = createStore(
-  reducers /* preloadedState, */,
+  reducers,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
