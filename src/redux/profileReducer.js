@@ -1,6 +1,7 @@
 // import cloneDeep from "./cloneDeep";
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST = "UPDATE-NEW-POST";
+const ADD_POST = "add-post";
+const UPDATE_NEW_POST = "update-new-post";
+const SET_CURRENT_USER = "set-current-user";
 const addPostActionCreator = () => ({
   type: ADD_POST,
 });
@@ -9,25 +10,16 @@ const updateNewPostValueActionCreator = (value) => ({
   type: UPDATE_NEW_POST,
   value: value,
 });
+
+const setCurrentUserActionCreator = (user) => {
+  return {
+    type: SET_CURRENT_USER,
+    user,
+  };
+};
+
 const initialState = {
-  currentUser: {
-    id: 1,
-    name: "Azamat Umirzakov",
-    username: "aumirzakov",
-    email: "azamat.umirzakoff@gmail.com",
-    address: {
-      street: "Kulas Light",
-      suite: "Apt. 556",
-      city: "Gwenborough",
-      zipcode: "92998-3874",
-      geo: {
-        lat: "-37.3159",
-        lng: "81.1496",
-      },
-    },
-    phone: "+77056631657",
-    website: "https://aumirzakov.vercel.app/",
-  },
+  currentUser: null,
   posts: [
     {
       id: 1,
@@ -72,10 +64,19 @@ const profileReducer = (state = initialState, action) => {
         newPostValue: action.value,
       };
     // break;
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.user,
+      };
     default:
       return state;
   }
 };
 
 export default profileReducer;
-export { addPostActionCreator, updateNewPostValueActionCreator };
+export {
+  addPostActionCreator,
+  updateNewPostValueActionCreator,
+  setCurrentUserActionCreator,
+};

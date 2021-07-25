@@ -1,5 +1,5 @@
-const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_NEW_MESSAGE = "UPDATE-NEW-MESSAGE";
+const ADD_MESSAGE = "add-message";
+const UPDATE_NEW_MESSAGE = "update-new-message";
 
 const addMessageActionCreator = () => ({
   type: ADD_MESSAGE,

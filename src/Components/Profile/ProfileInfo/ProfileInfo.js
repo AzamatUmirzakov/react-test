@@ -1,33 +1,21 @@
 import React from "react";
 import styles from "./ProfileInfo.module.css";
+import Preloader from "../../../common/Preloader/Preloader";
 
 const ProfileInfo = (props) => {
+  if (!props.user) {
+    return <Preloader />;
+  }
   return (
     <div>
       <div>
         <img src="assets/space.jpg" alt="" className={styles.profileImg} />
       </div>
       <div className={styles.currentUser}>
-        <img src="assets/profile-avatar.jpg" alt="" className={styles.avatar} />
+        <img src={props.user.photos.large} alt="" className={styles.avatar} />
         <div className={styles.description}>
-          <h1>{props.user.username}</h1>
-          <h2>{props.user.name}</h2>
-          <a
-            target="_blank"
-            href={`mailto:${props.user.email}`}
-            rel="noreferrer"
-            className={styles.email}
-          >
-            {props.user.email}
-          </a>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={props.user.website}
-            className={styles.website}
-          >
-            {props.user.website}
-          </a>
+          <h1>{props.user.fullName}</h1>
+          <h2>{props.user.aboutMe}</h2>
         </div>
       </div>
     </div>
