@@ -4,8 +4,26 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   padding: 10px;
   border-radius: 0 0 15px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header img {
   max-height: 100%;
+}
+
+.loginBlock a {
+  color: #777777;
+  font-family: "Roboto Regular", sans-serif;
+  font-size: 13px;
+}
+
+.loginBlock a:hover {
+  color: #fff;
+}
+
+.login {
+  color: #fff;
+  font-family: "Roboto Regular", sans-serif;
 }

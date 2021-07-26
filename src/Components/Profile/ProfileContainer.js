@@ -1,13 +1,16 @@
 import React from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { setCurrentUserActionCreator } from "../../redux/profileReducer";
 
 class ProfileContainer extends React.Component {
   componentDidMount = async () => {
+    let userId = this.props.match.params.userId;
+    if (!userId) userId = "2";
     const url = new URL(
-      "api/1.0/profile/2",
-      "https://social-network.samuraijs.com/"
+      userId,
+      "https://social-network.samuraijs.com/api/1.0/profile/"
     );
     const response = await fetch(url);
     const data = await response.json();
@@ -28,4 +31,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   setCurrentUser: setCurrentUserActionCreator,
-})(ProfileContainer);
+})(withRouter(ProfileContainer));
