@@ -66,6 +66,10 @@
   background: #555557;
 }
 
+.followButton[disabled] {
+  cursor: no-drop;
+}
+
 .usersPagination {
   max-width: 100%;
   overflow-x: auto;

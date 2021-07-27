@@ -23,6 +23,7 @@ const Users = (props) => {
       </span>
     );
   }
+  debugger;
   return (
     <div className={styles.users}>
       <div className={styles.usersPagination}>{pages}</div>
@@ -39,11 +40,16 @@ const Users = (props) => {
             {user.followed ? (
               <button
                 className={styles.followButton}
+                disabled={props.followingInProgress.some(
+                  (id) => id === user.id
+                )}
                 onClick={async () => {
+                  props.setFollowingInProgress(user.id, true);
                   unfollow(user.id).then((resultCode) => {
                     if (resultCode === 0) {
                       props.unfollow(user.id);
                     }
+                    props.setFollowingInProgress(user.id, false);
                   });
                 }}
               >
@@ -51,14 +57,19 @@ const Users = (props) => {
               </button>
             ) : (
               <button
+                className={styles.followButton}
+                disabled={props.followingInProgress.some(
+                  (id) => id === user.id
+                )}
                 onClick={async () => {
+                  props.setFollowingInProgress(true);
                   follow(user.id).then((resultCode) => {
                     if (resultCode === 0) {
                       props.follow(user.id);
                     }
+                    props.setFollowingInProgress(false);
                   });
                 }}
-                className={styles.followButton}
               >
                 Follow
               </button>
