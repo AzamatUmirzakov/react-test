@@ -2,6 +2,7 @@ import React from "react";
 import userFallback from "../../assets/images/user-fallback.png";
 import styles from "./Users.module.css";
 import { NavLink } from "react-router-dom";
+import { unfollow, follow } from "../../api/api";
 
 const Users = (props) => {
   const pagesCount = Math.ceil(props.totalCount / props.pageSize);
@@ -15,7 +16,7 @@ const Users = (props) => {
             : styles.pageLink
         }
         onClick={() => {
-          props.onPageChanged(i);
+          props.onPageChanged(i, props.pageSize);
         }}
       >
         {i}
@@ -38,16 +39,24 @@ const Users = (props) => {
             {user.followed ? (
               <button
                 className={styles.followButton}
-                onClick={() => {
-                  props.unfollow(user.id);
+                onClick={async () => {
+                  unfollow(user.id).then((resultCode) => {
+                    if (resultCode === 0) {
+                      props.unfollow(user.id);
+                    }
+                  });
                 }}
               >
                 Unfollow
               </button>
             ) : (
               <button
-                onClick={() => {
-                  props.follow(user.id);
+                onClick={async () => {
+                  follow(user.id).then((resultCode) => {
+                    if (resultCode === 0) {
+                      props.follow(user.id);
+                    }
+                  });
                 }}
                 className={styles.followButton}
               >

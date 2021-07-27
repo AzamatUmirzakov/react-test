@@ -14,7 +14,6 @@ class HeaderContainer extends React.Component {
       credentials: "include",
     });
     let json = await response.json();
-    debugger;
     if (json.resultCode === 0)
       this.props.setUserData(json.data.id, json.data.email, json.data.login);
   }

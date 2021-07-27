@@ -10,29 +10,57 @@ import {
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../../common/Preloader/Preloader";
+import { getUsers } from "../../api/api";
 
 class UsersAPIComponent extends React.Component {
-  getUsers = async (pageNumber) => {
-    const url = new URL(
-      "users",
-      "https://social-network.samuraijs.com/api/1.0/"
-    );
-    url.searchParams.set("page", pageNumber);
-    url.searchParams.set("count", this.props.pageSize);
-    this.props.setIsFetching(true);
-    const response = await fetch(url);
-    const data = await response.json();
-    this.props.setIsFetching(false);
-    this.props.setUsers(data.items);
-    this.props.setCurrentPage(pageNumber);
-    return data;
-  };
+  // getUsers = async (pageNumber) => {
+  //   const url = new URL(
+  //     "users",
+  //     "https://social-network.samuraijs.com/api/1.0/"
+  //   );
+  //   url.searchParams.set("page", pageNumber);
+  //   url.searchParams.set("count", this.props.pageSize);
+  //   this.props.setIsFetching(true);
+  //   const response = await fetch(url, {
+  //     credentials: "include",
+  //   });
+  //   const data = await response.json();
+  //   this.props.setIsFetching(false);
+  //   this.props.setUsers(data.items);
+  //   this.props.setCurrentPage(pageNumber);
+  //   return data;
+  // };
   componentDidMount() {
-    let response = this.getUsers(this.props.currentPage);
-    response.then((value) => {
-      this.props.setTotalCount(value.totalCount);
-    });
+    this.props.setIsFetching(true);
+    getUsers(this.props.currentPage, this.props.pageSize)
+      .then((result) => {
+        this.props.setTotalCount(result.totalCount);
+        return result;
+      })
+      .then((result) => {
+        this.props.setUsers(result.items);
+      })
+      .then(() => {
+        this.props.setIsFetching(false);
+      });
   }
+  onPageChanged = (pageNumber, pageSize) => {
+    getUsers(pageNumber, pageSize)
+      .then((result) => {
+        this.props.setCurrentPage(pageNumber);
+        return result;
+      })
+      .then((result) => {
+        this.props.setTotalCount(result.totalCount);
+        return result;
+      })
+      .then((result) => {
+        this.props.setUsers(result.items);
+      })
+      .then(() => {
+        this.props.setIsFetching(false);
+      });
+  };
   render() {
     return (
       <>
@@ -44,7 +72,7 @@ class UsersAPIComponent extends React.Component {
           users={this.props.users}
           follow={this.props.follow}
           unfollow={this.props.unfollow}
-          onPageChanged={this.getUsers}
+          onPageChanged={this.onPageChanged}
         />
       </>
     );
@@ -59,37 +87,13 @@ const mapStateToProps = (state) => ({
   isFetching: state.usersPage.isFetching,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   follow: (userId) => {
-//     dispatch(followActionCreator(userId));
-//   },
-//   unfollow: (userId) => {
-//     dispatch(unfollowActionCreator(userId));
-//   },
-//   setUsers: (users) => {
-//     dispatch(setUsersActionCreator(users));
-//   },
-//   setCurrentPage: (currentPage) => {
-//     dispatch(setCurrentPageActionCreator(currentPage));
-//   },
-//   setTotalCount: (totalCount) => {
-//     dispatch(setTotalCountActionCreator(totalCount));
-//   },
-//   setIsFetching: (isFetching) => {
-//     dispatch(setIsFetchingActionCreator(isFetching));
-//   },
-// });
-
-const UsersContainer = connect(
-  mapStateToProps,
-  {
-    follow: followActionCreator,
-    unfollow: unfollowActionCreator,
-    setUsers: setUsersActionCreator,
-    setCurrentPage: setCurrentPageActionCreator,
-    setTotalCount: setTotalCountActionCreator,
-    setIsFetching: setIsFetchingActionCreator,
-  }
-)(UsersAPIComponent);
+const UsersContainer = connect(mapStateToProps, {
+  follow: followActionCreator,
+  unfollow: unfollowActionCreator,
+  setUsers: setUsersActionCreator,
+  setCurrentPage: setCurrentPageActionCreator,
+  setTotalCount: setTotalCountActionCreator,
+  setIsFetching: setIsFetchingActionCreator,
+})(UsersAPIComponent);
 
 export default UsersContainer;
