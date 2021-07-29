@@ -1,3 +1,4 @@
+import { usersAPI } from "../api/api";
 const FOLLOW_USER = "follow-user";
 const UNFOLLOW_USER = "unfollow-user";
 const SET_USERS = "set-users";
@@ -113,6 +114,47 @@ const setFollowingInProgressActionCreator = (id, value) => ({
   id,
 });
 
+const getUsers = (currentPage, pageSize) => (dispatch) => {
+  dispatch(setIsFetchingActionCreator(true));
+  dispatch(setCurrentPageActionCreator(currentPage));
+  usersAPI
+    .getUsers(currentPage, pageSize)
+    .then((result) => {
+      dispatch(setTotalCountActionCreator(result.totalCount));
+      return result;
+    })
+    .then((result) => {
+      dispatch(setUsersActionCreator(result.items));
+    })
+    .then(() => {
+      dispatch(setIsFetchingActionCreator(false));
+    });
+};
+
+const follow = (userId) => {
+  return (dispatch) => {
+    dispatch(setFollowingInProgressActionCreator(userId, true));
+    usersAPI.follow(userId).then((response) => {
+      if (response.resultCode === 0) {
+        dispatch(followActionCreator(userId));
+      }
+      dispatch(setFollowingInProgressActionCreator(userId, false));
+    });
+  };
+};
+
+const unfollow = (userId) => {
+  return (dispatch) => {
+    dispatch(setFollowingInProgressActionCreator(userId, true));
+    usersAPI.unfollow(userId).then((response) => {
+      if (response.resultCode === 0) {
+        dispatch(unfollowActionCreator(userId));
+      }
+      dispatch(setFollowingInProgressActionCreator(userId, false));
+    });
+  };
+};
+
 export default usersReducer;
 export {
   followActionCreator,
@@ -122,4 +164,7 @@ export {
   setTotalCountActionCreator,
   setIsFetchingActionCreator,
   setFollowingInProgressActionCreator,
+  getUsers,
+  follow,
+  unfollow,
 };

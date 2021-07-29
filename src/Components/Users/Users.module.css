@@ -54,7 +54,7 @@
   border: none;
   outline: none;
   background: transparent;
-  font-family: "Roboto Regular";
+  font-family: "Roboto Regular", sans-serif;
   color: #777777;
   cursor: pointer;
   padding: 10px 20px;

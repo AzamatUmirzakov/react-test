@@ -1,3 +1,5 @@
+import { authAPI } from "../api/api";
+
 const SET_USER_DATA = "set-user-data";
 
 const initialState = {
@@ -30,5 +32,14 @@ const setUserDataActionCreator = (userId, email, login) => ({
   },
 });
 
+const authMe = () => (dispatch) => {
+  authAPI.me().then((data) => {
+    if (data.resultCode === 0)
+      dispatch(
+        setUserDataActionCreator(data.data.id, data.data.email, data.data.login)
+      );
+  });
+};
+
 export default authReducer;
-export { setUserDataActionCreator };
+export { setUserDataActionCreator, authMe };

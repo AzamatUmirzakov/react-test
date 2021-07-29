@@ -1,4 +1,4 @@
-// import cloneDeep from "./cloneDeep";
+import { usersAPI } from "../api/api";
 const ADD_POST = "add-post";
 const UPDATE_NEW_POST = "update-new-post";
 const SET_CURRENT_USER = "set-current-user";
@@ -74,9 +74,15 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
+const setCurrentUser = (userId) => async (dispatch) => {
+  usersAPI.getProfile(userId).then((data) => {
+    dispatch(setCurrentUserActionCreator(data));
+  });
+};
+
 export default profileReducer;
 export {
   addPostActionCreator,
   updateNewPostValueActionCreator,
-  setCurrentUserActionCreator,
+  setCurrentUser,
 };

@@ -2,7 +2,7 @@ import React from "react";
 import userFallback from "../../assets/images/user-fallback.png";
 import styles from "./Users.module.css";
 import { NavLink } from "react-router-dom";
-import { unfollow, follow } from "../../api/api";
+import { usersAPI } from "../../api/api";
 
 const Users = (props) => {
   const pagesCount = Math.ceil(props.totalCount / props.pageSize);
@@ -23,7 +23,6 @@ const Users = (props) => {
       </span>
     );
   }
-  debugger;
   return (
     <div className={styles.users}>
       <div className={styles.usersPagination}>{pages}</div>
@@ -43,14 +42,8 @@ const Users = (props) => {
                 disabled={props.followingInProgress.some(
                   (id) => id === user.id
                 )}
-                onClick={async () => {
-                  props.setFollowingInProgress(user.id, true);
-                  unfollow(user.id).then((resultCode) => {
-                    if (resultCode === 0) {
-                      props.unfollow(user.id);
-                    }
-                    props.setFollowingInProgress(user.id, false);
-                  });
+                onClick={() => {
+                  props.unfollow(user.id);
                 }}
               >
                 Unfollow
@@ -61,14 +54,8 @@ const Users = (props) => {
                 disabled={props.followingInProgress.some(
                   (id) => id === user.id
                 )}
-                onClick={async () => {
-                  props.setFollowingInProgress(true);
-                  follow(user.id).then((resultCode) => {
-                    if (resultCode === 0) {
-                      props.follow(user.id);
-                    }
-                    props.setFollowingInProgress(false);
-                  });
+                onClick={() => {
+                  props.follow(user.id);
                 }}
               >
                 Follow
