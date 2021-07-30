@@ -1,14 +1,14 @@
 import { Route } from "react-router-dom";
 import React from "react";
 import Navbar from "./Components/Navbar/Navbar";
-// import Profile from "./Components/Profile/Profile";
+import HeaderContainer from "./Components/Header/HeaderContainer";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
-import ProfileContainer from "./Components/Profile/ProfileContainer";
-import HeaderContainer from "./Components/Header/HeaderContainer";
 // import News from "./Components/News/News";
 // import Music from "./Components/Music/Music";
 // import Settings from "./Components/Settings/Settings";
+import Login from "./Components/Login/Login";
 function App(props) {
   return (
     <div className="app-wrapper">
@@ -18,6 +18,7 @@ function App(props) {
         <Route render={() => <ProfileContainer />} path="/profile/:userId?" />
         <Route render={() => <DialogsContainer />} path="/dialogs" />
         <Route render={() => <UsersContainer />} path="/users" />
+        <Route render={() => <Login />} path="/login" />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import styles from "./Dialogs.module.css";
@@ -17,6 +17,11 @@ const Dialogs = (props) => {
   let handleChange = (event) => {
     props.updateNewMessageValue(event.target.value);
   };
+
+  if (!props.isAuth) {
+    return <Redirect to={"/login"} />;
+  }
+
   return (
     <div className={styles.dialogs}>
       <div className={styles.dialogsItems}>{dialogElements}</div>
