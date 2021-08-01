@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./ProfileInfo.module.css";
 import userFallback from "../../../assets/images/user-fallback.png";
 import Preloader from "../../../common/Preloader/Preloader";
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
   if (!props.user) {
@@ -14,14 +15,11 @@ const ProfileInfo = (props) => {
 
   return (
     <div>
-      <div>
-        <img src="assets/space.jpg" alt="" className={styles.profileImg} />
-      </div>
       <div className={styles.currentUser}>
         <img src={avatar} alt="" className={styles.avatar} />
         <div className={styles.description}>
           <h1>{props.user.fullName}</h1>
-          <h2>{props.user.aboutMe}</h2>
+          <ProfileStatus status={props.user.aboutMe} />
         </div>
       </div>
     </div>
