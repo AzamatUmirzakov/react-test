@@ -1,29 +1,47 @@
 import React from "react";
+import { useFormik } from "formik";
+import { myPostsValidationSchema } from "../../../utils/validation/validation";
 import Post from "./Post/Post";
 import styles from "./MyPosts.module.css";
 
 function MyPosts(props) {
-  let handleClick = (event) => {
-    props.addPost();
-  };
-  let handleChange = (event) => {
-    props.updateNewPostValue(event.target.value);
-  };
-  let postElements = props.posts.map((post) => <Post text={post.text} />);
+  // let handleClick = (event) => {
+  //   props.addPost();
+  // };
+  // let handleChange = (event) => {
+  //   props.updateNewPostValue(event.target.value);
+  // };
+  const formik = useFormik({
+    initialValues: {
+      newPost: "",
+    },
+    onSubmit(values) {
+      props.addPost(values.newPost);
+      formik.resetForm();
+    },
+    validateOnChange: false,
+    validateOnBlur: false,
+    validationSchema: myPostsValidationSchema,
+  });
+  let postElements = props.posts.map((post) => (
+    <Post text={post.text} key={post.id} />
+  ));
   return (
     <div className={styles.postsBlock}>
       <h3>My posts</h3>
-      <div className={styles.newPost}>
+      <form className={styles.newPost} onSubmit={formik.handleSubmit}>
         <textarea
-          name=""
+          name="newPost"
           cols="30"
           rows="10"
-          value={props.newPostValue}
-          onChange={handleChange}
+          value={formik.values.newPost}
+          onChange={formik.handleChange}
           placeholder="What's on your mind?"
-        ></textarea>
-        <button onClick={handleClick}>Add post</button>
-      </div>
+          className={formik.errors.newPost ? styles.newPostError : null}
+        />
+        {formik.errors.newPost ? formik.errors.newPost : null}
+        <button type={"submit"}>Add post</button>
+      </form>
       <div className={styles.posts}>{postElements}</div>
     </div>
   );

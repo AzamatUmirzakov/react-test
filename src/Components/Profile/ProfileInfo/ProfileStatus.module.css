@@ -1,0 +1,11 @@
+.profileStatus {
+}
+
+.profileStatus input {
+  background-color: #555556;
+  color: #fff;
+  font-size: 20px;
+  padding-left: 5px;
+  border: none;
+  outline: none;
+}

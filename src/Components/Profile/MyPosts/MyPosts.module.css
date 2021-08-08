@@ -18,9 +18,11 @@
 .newPost textarea {
   display: block;
   margin-bottom: 10px;
-  border: none;
   outline: none;
   background: #444444;
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
   padding: 10px 20px;
   box-sizing: border-box;
   color: gray;
@@ -32,6 +34,10 @@
 .newPost textarea:focus {
   background: #555;
   color: #fff;
+}
+
+.newPost .newPostError {
+  border-color: red;
 }
 
 .newPost button {

@@ -16,21 +16,4 @@ const Preloader = ({ width = 50, height = 50 }) => {
   );
 };
 
-const x = [
-  {
-    name: "bruhwiuhfiwuf",
-    age: 15,
-    female: false,
-    idk: "bruh",
-    uifwehfeiw: "ewufwehfwiuefh",
-  },
-  {
-    name: "bruhwiuhfiwuf",
-    age: 15,
-    female: false,
-    idk: "bruh",
-    uifwehfeiw: "ewufwehfwiuefh",
-  },
-];
-
 export default Preloader;

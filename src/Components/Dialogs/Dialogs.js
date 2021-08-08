@@ -1,22 +1,27 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import styles from "./Dialogs.module.css";
+import { useFormik } from "formik";
+
 const Dialogs = (props) => {
   let dialogElements = props.state.dialogs.map((dialog) => (
-    <Dialog id={dialog.id} name={dialog.name} />
+    <Dialog key={dialog.id} id={dialog.id} name={dialog.name} />
   ));
   let messageElements = props.state.messages.map((message) => (
-    <Message id={message.id} message={message.message} />
+    <Message key={message.id} id={message.id} message={message.message} />
   ));
 
-  let handleClick = () => {
-    props.addMessage();
-  };
-  let handleChange = (event) => {
-    props.updateNewMessageValue(event.target.value);
-  };
+  const formik = useFormik({
+    initialValues: {
+      newMessage: "",
+    },
+    onSubmit(values) {
+      props.addMessage(values.newMessage);
+      formik.resetForm();
+    },
+  });
 
   return (
     <div className={styles.dialogs}>
@@ -27,17 +32,20 @@ const Dialogs = (props) => {
           return (
             <div className={styles.messages}>
               {messageElements}
-              <div className={styles.newMessage}>
+              <form
+                className={styles.newMessage}
+                onSubmit={formik.handleSubmit}
+              >
                 <textarea
-                  name=""
+                  name="newMessage"
                   cols="30"
                   rows="10"
-                  value={props.state.newMessageValue}
-                  onChange={handleChange}
+                  value={formik.values.newMessage}
+                  onChange={formik.handleChange}
                   placeholder="New message"
-                ></textarea>
-                <button onClick={handleClick}>send</button>
-              </div>
+                />
+                <button type={"submit"}>send</button>
+              </form>
             </div>
           );
         }}

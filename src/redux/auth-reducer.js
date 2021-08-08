@@ -16,19 +16,19 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.data,
-        isAuth: true,
       };
     default:
       return state;
   }
 };
 
-const setUserDataActionCreator = (userId, email, login) => ({
+const setUserDataActionCreator = (userId, email, login, isAuth) => ({
   type: SET_USER_DATA,
   data: {
     userId,
     email,
     login,
+    isAuth,
   },
 });
 
@@ -36,10 +36,31 @@ const authMe = () => (dispatch) => {
   authAPI.me().then((data) => {
     if (data.resultCode === 0)
       dispatch(
-        setUserDataActionCreator(data.data.id, data.data.email, data.data.login)
+        setUserDataActionCreator(
+          data.data.id,
+          data.data.email,
+          data.data.login,
+          true
+        )
       );
   });
 };
 
+const login = (email, password, remember) => (dispatch) => {
+  authAPI.login(email, password, remember).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(authMe());
+    }
+  });
+};
+
+const logout = () => (dispatch) => {
+  authAPI.logout().then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(setUserDataActionCreator(null, null, null, false));
+    }
+  });
+};
+
 export default authReducer;
-export { setUserDataActionCreator, authMe };
+export { setUserDataActionCreator, authMe, login, logout };

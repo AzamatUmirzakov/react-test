@@ -1,8 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import LoginContainer from "../Login/LoginContainer";
 
 const Navbar = (props) => {
+  if (!props.isAuth) {
+    return <LoginContainer />;
+  }
   return (
     <div className={styles.nav}>
       <nav>

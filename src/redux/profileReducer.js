@@ -1,20 +1,24 @@
-import { usersAPI } from "../api/api";
+import { profileAPI } from "../api/api";
 const ADD_POST = "add-post";
-const UPDATE_NEW_POST = "update-new-post";
 const SET_CURRENT_USER = "set-current-user";
-const addPostActionCreator = () => ({
-  type: ADD_POST,
-});
+const SET_STATUS = "set-status";
 
-const updateNewPostValueActionCreator = (value) => ({
-  type: UPDATE_NEW_POST,
-  value: value,
+const addPostActionCreator = (text) => ({
+  type: ADD_POST,
+  text,
 });
 
 const setCurrentUserActionCreator = (user) => {
   return {
     type: SET_CURRENT_USER,
     user,
+  };
+};
+
+const setStatusActionCreator = (status) => {
+  return {
+    type: SET_STATUS,
+    status,
   };
 };
 
@@ -34,55 +38,56 @@ const initialState = {
       text: "ok",
     },
   ],
-  newPostValue: "",
+  status: "",
 };
 
 const profileReducer = (state = initialState, action) => {
-  // let newState;
   switch (action.type) {
     case ADD_POST:
-      // newState = cloneDeep(state);
-      // newState.posts.push({
-      //   text: newState.newPostValue,
-      //   id: newState.posts.length + 1,
-      // });
-      // newState.newPostValue = "";
-      // break;
       return {
         ...state,
         posts: [
           ...state.posts,
-          { text: state.newPostValue, id: state.posts.length + 1 },
+          { text: action.text, id: state.posts.length + 1 },
         ],
         newPostValue: "",
       };
-    case UPDATE_NEW_POST:
-      // newState = cloneDeep(state);
-      // newState.newPostValue = action.value;
-      return {
-        ...state,
-        newPostValue: action.value,
-      };
-    // break;
     case SET_CURRENT_USER:
       return {
         ...state,
         currentUser: action.user,
+      };
+    case SET_STATUS:
+      return {
+        ...state,
+        status: action.status,
       };
     default:
       return state;
   }
 };
 
-const setCurrentUser = (userId) => async (dispatch) => {
-  usersAPI.getProfile(userId).then((data) => {
+const setCurrentUser = (userId) => (dispatch) => {
+  profileAPI.getProfile(userId).then((data) => {
     dispatch(setCurrentUserActionCreator(data));
   });
 };
 
-export default profileReducer;
-export {
-  addPostActionCreator,
-  updateNewPostValueActionCreator,
-  setCurrentUser,
+const getStatus = (userId) => (dispatch) => {
+  profileAPI.getStatus(userId).then((data) => {
+    dispatch(setStatusActionCreator(data));
+  });
 };
+
+const updateStatus = (status) => (dispatch) => {
+  profileAPI.updateStatus(status).then((response) => {
+    if (response.resultCode === 0) {
+      dispatch(setStatusActionCreator(status));
+    }
+  });
+};
+
+window.updateStatus = updateStatus;
+
+export default profileReducer;
+export { addPostActionCreator, setCurrentUser, getStatus, updateStatus };

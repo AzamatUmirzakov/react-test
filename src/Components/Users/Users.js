@@ -2,7 +2,6 @@ import React from "react";
 import userFallback from "../../assets/images/user-fallback.png";
 import styles from "./Users.module.css";
 import { NavLink } from "react-router-dom";
-import { usersAPI } from "../../api/api";
 
 const Users = (props) => {
   const pagesCount = Math.ceil(props.totalCount / props.pageSize);

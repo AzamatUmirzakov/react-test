@@ -26,10 +26,7 @@ const usersAPI = {
     return data.resultCode;
   },
   follow: async (userId) => {
-    const url = new URL(
-      `follow/${userId}`,
-      "https://social-network.samuraijs.com/api/1.0/"
-    );
+    const url = new URL(`follow/${userId}`, BASE_URL);
     let response = await fetch(url, {
       method: "POST",
       credentials: "include",
@@ -40,12 +37,34 @@ const usersAPI = {
     let data = await response.json();
     return data.resultCode;
   },
+};
+
+const profileAPI = {
   getProfile: async (userId) => {
-    const url = new URL(
-      userId,
-      "https://social-network.samuraijs.com/api/1.0/profile/"
-    );
+    const url = new URL(`profile/${userId}`, BASE_URL);
     const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  },
+  getStatus: async (userId) => {
+    const url = new URL(`profile/status/${userId}`, BASE_URL);
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  },
+  updateStatus: async (value) => {
+    const url = new URL(`profile/status`, BASE_URL);
+    const response = await fetch(url, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "API-KEY": API_KEY,
+      },
+      body: JSON.stringify({
+        status: value,
+      }),
+    });
     const data = await response.json();
     return data;
   },
@@ -53,17 +72,43 @@ const usersAPI = {
 
 const authAPI = {
   me: async () => {
-    let url = new URL(
-      "auth/me/",
-      "https://social-network.samuraijs.com/api/1.0/"
-    );
+    const url = new URL("auth/me/", BASE_URL);
 
-    let response = await fetch(url, {
+    const response = await fetch(url, {
       credentials: "include",
     });
-    let json = await response.json();
+    const json = await response.json();
+    return json;
+  },
+  login: async (email, password, remember) => {
+    const url = new URL("auth/login", BASE_URL);
+
+    const response = await fetch(url, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "API-KEY": API_KEY,
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        rememberMe: remember,
+      }),
+    });
+    const json = await response.json();
+    return json;
+  },
+  logout: async () => {
+    const url = new URL("auth/login", BASE_URL);
+
+    const response = await fetch(url, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    const json = await response.json();
     return json;
   },
 };
 
-export { usersAPI, authAPI };
+export { usersAPI, authAPI, profileAPI };
