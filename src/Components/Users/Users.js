@@ -2,6 +2,7 @@ import React from "react";
 import userFallback from "../../assets/images/user-fallback.png";
 import styles from "./Users.module.css";
 import { NavLink } from "react-router-dom";
+import Preloader from "../../common/Preloader/Preloader";
 
 const Users = (props) => {
   const pagesCount = Math.ceil(props.totalCount / props.pageSize);
@@ -15,13 +16,14 @@ const Users = (props) => {
             : styles.pageLink
         }
         onClick={() => {
-          props.onPageChanged(i, props.pageSize);
+          props.getUsers(i, props.pageSize);
         }}
       >
         {i}
       </span>
     );
   }
+  if (props.isFetching) return <Preloader />;
   return (
     <div className={styles.users}>
       <div className={styles.usersPagination}>{pages}</div>

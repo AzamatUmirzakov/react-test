@@ -114,28 +114,31 @@ const setFollowingInProgressActionCreator = (id, value) => ({
   id,
 });
 
-const getUsers = (currentPage, pageSize) => (dispatch) => {
-  dispatch(setIsFetchingActionCreator(true));
-  dispatch(setCurrentPageActionCreator(currentPage));
-  usersAPI
-    .getUsers(currentPage, pageSize)
-    .then((result) => {
-      dispatch(setTotalCountActionCreator(result.totalCount));
-      return result;
-    })
-    .then((result) => {
-      dispatch(setUsersActionCreator(result.items));
-    })
-    .then(() => {
-      dispatch(setIsFetchingActionCreator(false));
-    });
-};
+const getUsers =
+  (currentPage = 1, pageSize = 5) =>
+  (dispatch) => {
+    dispatch(setIsFetchingActionCreator(true));
+    dispatch(setCurrentPageActionCreator(currentPage));
+    usersAPI
+      .getUsers(currentPage, pageSize)
+      .then((result) => {
+        dispatch(setTotalCountActionCreator(result.totalCount));
+        return result;
+      })
+      .then((result) => {
+        dispatch(setUsersActionCreator(result.items));
+      })
+      .then(() => {
+        dispatch(setIsFetchingActionCreator(false));
+      });
+  };
 
 const follow = (userId) => {
   return (dispatch) => {
     dispatch(setFollowingInProgressActionCreator(userId, true));
-    usersAPI.follow(userId).then((response) => {
-      if (response.resultCode === 0) {
+    usersAPI.follow(userId).then((resultCode) => {
+      debugger;
+      if (resultCode === 0) {
         dispatch(followActionCreator(userId));
       }
       dispatch(setFollowingInProgressActionCreator(userId, false));
@@ -146,8 +149,9 @@ const follow = (userId) => {
 const unfollow = (userId) => {
   return (dispatch) => {
     dispatch(setFollowingInProgressActionCreator(userId, true));
-    usersAPI.unfollow(userId).then((response) => {
-      if (response.resultCode === 0) {
+    usersAPI.unfollow(userId).then((resultCode) => {
+      debugger;
+      if (resultCode === 0) {
         dispatch(unfollowActionCreator(userId));
       }
       dispatch(setFollowingInProgressActionCreator(userId, false));

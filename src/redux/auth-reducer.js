@@ -33,7 +33,7 @@ const setUserDataActionCreator = (userId, email, login, isAuth) => ({
 });
 
 const authMe = () => (dispatch) => {
-  authAPI.me().then((data) => {
+  return authAPI.me().then((data) => {
     if (data.resultCode === 0)
       dispatch(
         setUserDataActionCreator(
@@ -47,9 +47,11 @@ const authMe = () => (dispatch) => {
 };
 
 const login = (email, password, remember) => (dispatch) => {
-  authAPI.login(email, password, remember).then((data) => {
+  return authAPI.login(email, password, remember).then((data) => {
     if (data.resultCode === 0) {
       dispatch(authMe());
+    } else {
+      throw new Error(data.messages[0]);
     }
   });
 };

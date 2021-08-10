@@ -26,8 +26,13 @@ const LoginForm = (props) => {
       password: "",
       remember: false,
     },
-    onSubmit: (values) => {
-      props.login(values.email, values.password, values.remember);
+    onSubmit: async (values) => {
+      await props
+        .login(values.email, values.password, values.remember)
+        .catch((err) => {
+          formik.setFieldError("summary", err.message);
+        });
+      formik.setSubmitting(false);
     },
     // validation
     validationSchema: schema,
@@ -42,6 +47,7 @@ const LoginForm = (props) => {
         placeholder="email"
         name="email"
         {...formik.getFieldProps("email")}
+        className={formik.errors.email ? styles.error : ""}
       />
       {formik.touched.email ? (
         formik.errors.email ? (
@@ -52,6 +58,7 @@ const LoginForm = (props) => {
         type="password"
         placeholder="password"
         name="password"
+        className={formik.errors.password ? styles.error : ""}
         {...formik.getFieldProps("password")}
       />
       {formik.touched.password ? (
@@ -59,6 +66,7 @@ const LoginForm = (props) => {
           <p>{formik.errors.password}</p>
         ) : null
       ) : null}
+      {formik.errors.summary ? <p>{formik.errors.summary} </p> : null}
       <input
         type="checkbox"
         name="remember"

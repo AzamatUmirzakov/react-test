@@ -5,7 +5,7 @@ import Preloader from "../../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
-  if (!props.user) {
+  if (!props.user || !props.user.userId) {
     return <Preloader />;
   }
 
