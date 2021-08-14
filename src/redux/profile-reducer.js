@@ -74,7 +74,7 @@ const setCurrentUser = (userId) => (dispatch) => {
 };
 
 const getStatus = (userId) => (dispatch) => {
-  profileAPI.getStatus(userId).then((data) => {
+  return profileAPI.getStatus(userId).then((data) => {
     dispatch(setStatusActionCreator(data));
   });
 };

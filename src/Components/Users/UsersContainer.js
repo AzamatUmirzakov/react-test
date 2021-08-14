@@ -1,4 +1,3 @@
-import React from "react";
 import { connect } from "react-redux";
 import { follow, unfollow } from "../../redux/usersReducer";
 import { getUsers } from "../../redux/usersReducer";

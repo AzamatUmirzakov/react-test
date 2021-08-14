@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ProfileStatus.module.css";
 // import Preloader from "../../../common/Preloader/Preloader";
 
@@ -15,6 +15,7 @@ class ProfileStatus extends React.Component {
     editing: false,
     value: this.props.status,
   };
+
   toggleEditing = (value) => {
     this.setState({
       editing: value,
@@ -52,4 +53,39 @@ class ProfileStatus extends React.Component {
   }
 }
 
-export default ProfileStatus;
+const ProfileStatusWithHooks = (props) => {
+  const [editing, setEditing] = useState(false);
+  const [status, setStatus] = useState(props.status);
+  useEffect(() => {
+    setStatus(props.status);
+  }, [props.status]);
+
+  const handleChange = (event) => {
+    setStatus(event.target.value);
+  };
+  return (
+    <div
+      className={styles.profileStatus}
+      onDoubleClick={() => {
+        setEditing(true);
+      }}
+    >
+      {!editing ? (
+        <h2>{props.status ? props.status : "My status"}</h2>
+      ) : (
+        <input
+          type="text"
+          autoFocus={true}
+          onBlur={() => {
+            props.updateStatus(status);
+            setEditing(false);
+          }}
+          value={status ? status : "My status"}
+          onChange={handleChange}
+        />
+      )}
+    </div>
+  );
+};
+
+export default ProfileStatusWithHooks;
