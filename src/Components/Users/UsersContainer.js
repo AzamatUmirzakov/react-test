@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import { follow, unfollow } from "../../redux/usersReducer";
-import { getUsers } from "../../redux/usersReducer";
+import { follow, unfollow } from "../../store/users-reducer";
+import { getUsers } from "../../store/users-reducer";
 import {
   selectCurrentPage,
   selectFollowingInProgress,

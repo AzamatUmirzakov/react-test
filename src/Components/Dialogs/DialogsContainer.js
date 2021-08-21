@@ -1,6 +1,6 @@
 import Dialogs from "./Dialogs";
 import AuthRedirect from "../../hoc/AuthRedirect";
-import { addMessageActionCreator } from "../../redux/dialogs-reducer";
+import { addMessageActionCreator } from "../../store/dialogs-reducer";
 import { connect } from "react-redux";
 import { compose } from "redux";
 

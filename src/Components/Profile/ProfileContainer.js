@@ -5,7 +5,7 @@ import {
   setCurrentUser,
   getStatus,
   updateStatus,
-} from "../../redux/profile-reducer";
+} from "../../store/profile-reducer";
 import { Redirect, withRouter } from "react-router-dom";
 // import AuthRedirect from "../../hoc/AuthRedirect";
 import { compose } from "redux";

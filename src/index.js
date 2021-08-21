@@ -1,16 +1,9 @@
-import store from "./redux/reduxStore";
+import store from "./store/reduxStore";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import App from "./App";
+import AppContainer from "./AppContainer";
 import "./style.css";
 
-ReactDOM.render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </BrowserRouter>,
-  document.querySelector("#root")
-);
+ReactDOM.render(<AppContainer />, document.querySelector("#root"));

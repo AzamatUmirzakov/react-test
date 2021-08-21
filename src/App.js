@@ -7,7 +7,7 @@ import ProfileContainer from "./Components/Profile/ProfileContainer";
 import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import LoginContainer from "./Components/Login/LoginContainer";
-import { initialize } from "./redux/app-reducer";
+import { initialize } from "./store/app-reducer";
 import Preloader from "./common/Preloader/Preloader";
 
 class App extends React.Component {

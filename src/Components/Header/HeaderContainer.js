@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { logout } from "../../redux/auth-reducer";
+import { logout } from "../../store/auth-reducer";
 import Header from "./Header";
 
 const mapStateToProps = (state) => ({
