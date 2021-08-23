@@ -4,8 +4,8 @@ const BASE_URL = "https://social-network.samuraijs.com/api/1.0/";
 const usersAPI = {
   getUsers: async (pageNumber = 1, pageSize = 5) => {
     const url = new URL("users", BASE_URL);
-    url.searchParams.set("page", pageNumber);
-    url.searchParams.set("count", pageSize);
+    url.searchParams.set("page", String(pageNumber));
+    url.searchParams.set("count", String(pageSize));
 
     const response = await fetch(url, {
       credentials: "include",

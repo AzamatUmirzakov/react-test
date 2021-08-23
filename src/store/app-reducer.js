@@ -1,6 +1,7 @@
 import { authMe } from "./auth-reducer";
 // import { getUsers } from "./usersReducer";
 import { getStatus } from "./profile-reducer";
+import { getUsers } from "./users-reducer";
 
 const INITIALIZED_SUCCESS = "SET_INITIALIZED_SUCCESS";
 
@@ -27,7 +28,7 @@ const initializedSuccessActionCreator = () => ({
 });
 
 const initialize = () => async (dispatch) => {
-  Promise.all([dispatch(authMe())]).then(() => {
+  Promise.all([dispatch(authMe()), dispatch(getUsers())]).then(() => {
     dispatch(initializedSuccessActionCreator());
   });
   // await dispatch(authMe());
