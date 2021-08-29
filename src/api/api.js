@@ -68,6 +68,22 @@ const profileAPI = {
     const data = await response.json();
     return data;
   },
+  updatePhoto: async (photo) => {
+    const url = new URL("profile/photo", BASE_URL);
+    const formData = new FormData();
+    formData.append("photo", photo);
+    const response = await fetch(url, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "API-KEY": API_KEY,
+      },
+      body: formData,
+    });
+    const data = await response.json();
+    debugger;
+    return data;
+  },
 };
 
 const authAPI = {
