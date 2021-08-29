@@ -137,7 +137,6 @@ const follow = (userId) => {
   return (dispatch) => {
     dispatch(setFollowingInProgressActionCreator(userId, true));
     usersAPI.follow(userId).then((resultCode) => {
-      debugger;
       if (resultCode === 0) {
         dispatch(followActionCreator(userId));
       }
@@ -150,7 +149,6 @@ const unfollow = (userId) => {
   return (dispatch) => {
     dispatch(setFollowingInProgressActionCreator(userId, true));
     usersAPI.unfollow(userId).then((resultCode) => {
-      debugger;
       if (resultCode === 0) {
         dispatch(unfollowActionCreator(userId));
       }

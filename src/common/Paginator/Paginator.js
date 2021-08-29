@@ -19,7 +19,6 @@ const Paginator = (props) => {
   const pages = [];
 
   for (let i = leftPortionBorder; i < rightPortionBorder; i++) {
-    // debugger;
     pages.push(
       <span
         key={i}

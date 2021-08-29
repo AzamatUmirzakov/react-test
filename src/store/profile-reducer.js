@@ -103,7 +103,6 @@ const updateStatus = (status) => (dispatch) => {
 
 const updatePhoto = (photo) => (dispatch) => {
   profileAPI.updatePhoto(photo).then((response) => {
-    debugger;
     if (response.resultCode === 0) {
       dispatch(updatePhotoSuccess(response.data.photos));
     }

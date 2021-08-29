@@ -81,7 +81,6 @@ const profileAPI = {
       body: formData,
     });
     const data = await response.json();
-    debugger;
     return data;
   },
 };

@@ -3,7 +3,41 @@
 }
 
 .avatar {
+  display: inline-block;
   max-width: 200px;
+  position: relative;
+}
+
+.avatar:hover button {
+  background-color: rgba(0,0,0, 0.5);
+  opacity: 1;
+  cursor: pointer;
+}
+
+.avatar button {
+  transition: all 0.3s ease-in-out;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  opacity: 0;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+}
+
+.avatar button img {
+  max-width: 100px;
+}
+
+.avatar input {
+  display: none;
+}
+
+.avatarImage {
+  max-width: 100%;
+  height: 100%;
   border-radius: 15px;
 }
 
