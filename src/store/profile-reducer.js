@@ -3,6 +3,7 @@ const ADD_POST = "add-post";
 const SET_CURRENT_USER = "set-current-user";
 const SET_STATUS = "set-status";
 const UPDATE_PHOTO_SUCCESS = "update-photo-success";
+const UPDATE_PROFILE_SUCCESS = "update-profile-success";
 
 const addPostActionCreator = (text) => ({
   type: ADD_POST,
@@ -26,6 +27,11 @@ const setStatusActionCreator = (status) => {
 const updatePhotoSuccess = (photos) => ({
   type: UPDATE_PHOTO_SUCCESS,
   photos,
+});
+
+const updateProfileSuccess = (profile) => ({
+  type: UPDATE_PROFILE_SUCCESS,
+  profile,
 });
 
 const initialState = {
@@ -83,6 +89,7 @@ const profileReducer = (state = initialState, action) => {
 
 const setCurrentUser = (userId) => (dispatch) => {
   profileAPI.getProfile(userId).then((data) => {
+    debugger;
     dispatch(setCurrentUserActionCreator(data));
   });
 };
@@ -109,6 +116,16 @@ const updatePhoto = (photo) => (dispatch) => {
   });
 };
 
+const updateProfile = (profile) => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
+  const response = await profileAPI.updateProfile(profile);
+  if (response.resultCode === 0) {
+    dispatch(updateProfileSuccess(response));
+    dispatch(setCurrentUser(userId));
+  }
+  return response;
+};
+
 export default profileReducer;
 export {
   addPostActionCreator,
@@ -116,4 +133,5 @@ export {
   getStatus,
   updateStatus,
   updatePhoto,
+  updateProfile,
 };

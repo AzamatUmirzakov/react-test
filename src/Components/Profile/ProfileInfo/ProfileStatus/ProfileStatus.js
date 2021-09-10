@@ -80,7 +80,7 @@ const ProfileStatusWithHooks = (props) => {
             props.updateStatus(status);
             setEditing(false);
           }}
-          value={status ? status : "My status"}
+          value={status}
           onChange={handleChange}
         />
       )}

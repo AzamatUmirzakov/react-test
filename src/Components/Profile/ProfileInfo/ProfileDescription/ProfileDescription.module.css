@@ -1,0 +1,26 @@
+
+.description {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  font-family: "Roboto Regular";
+  padding: 10px;
+  color: #777777;
+  font-weight: normal;
+}
+
+
+.description a {
+  color: #777;
+  font-size: 20px;
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.description a:hover,
+.description a:focus {
+  color: #fff;
+  outline: none;
+}

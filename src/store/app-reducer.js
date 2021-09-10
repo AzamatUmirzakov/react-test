@@ -28,7 +28,7 @@ const initializedSuccessActionCreator = () => ({
 });
 
 const initialize = () => async (dispatch) => {
-  Promise.all([dispatch(authMe()), dispatch(getUsers())]).then(() => {
+  Promise.all([dispatch(authMe())]).then(() => {
     dispatch(initializedSuccessActionCreator());
   });
   // await dispatch(authMe());

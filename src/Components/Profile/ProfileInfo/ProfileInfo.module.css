@@ -4,7 +4,7 @@
 
 .avatar {
   display: inline-block;
-  max-width: 200px;
+  max-width: 250px;
   position: relative;
 }
 
@@ -45,38 +45,20 @@
   padding: 10px;
   display: grid;
   grid-template-columns: 30% 1fr;
+  align-items: center;
 }
 
-.description {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
+.user {
   font-family: "Roboto Regular";
-  color: #777777;
-  font-weight: normal;
 }
 
-.description h1 {
+.user h1 {
   font-size: 70px;
   color: #fff;
   margin-bottom: 10px;
 }
 
-.description h2 {
+.user h2 {
   font-size: 20px;
-}
-
-.description a {
   color: #777;
-  font-size: 20px;
-  display: inline-block;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-
-.description a:hover,
-.description a:focus {
-  color: #fff;
-  outline: none;
 }

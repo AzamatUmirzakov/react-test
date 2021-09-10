@@ -83,6 +83,20 @@ const profileAPI = {
     const data = await response.json();
     return data;
   },
+  updateProfile: async (profile) => {
+    const url = new URL("profile", BASE_URL);
+    const response = await fetch(url, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "API-KEY": API_KEY,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(profile),
+    });
+    const data = await response.json();
+    return data;
+  },
 };
 
 const authAPI = {

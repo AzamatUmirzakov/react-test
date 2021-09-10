@@ -6,6 +6,7 @@ import {
   getStatus,
   updateStatus,
   updatePhoto,
+  updateProfile,
 } from "../../store/profile-reducer";
 import { Redirect, withRouter } from "react-router-dom";
 // import AuthRedirect from "../../hoc/AuthRedirect";
@@ -27,11 +28,7 @@ class ProfileContainer extends React.Component {
       return <Redirect to={"/login"} />;
     }
     return (
-      <Profile
-        {...this.props}
-        isOwner={!!!this.props.match.params.userId}
-        updatePhoto={this.props.updatePhoto}
-      />
+      <Profile {...this.props} isOwner={!!!this.props.match.params.userId} />
     );
   }
 }
@@ -49,6 +46,7 @@ export default compose(
     getStatus,
     updateStatus,
     updatePhoto,
+    updateProfile,
   }),
   withRouter
   // AuthRedirect
