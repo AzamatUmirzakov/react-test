@@ -25,10 +25,11 @@ const LoginForm = (props) => {
       email: "",
       password: "",
       remember: false,
+      captcha: "",
     },
     onSubmit: async (values) => {
       await props
-        .login(values.email, values.password, values.remember)
+        .login(values.email, values.password, values.remember, values.captcha)
         .catch((err) => {
           formik.setFieldError("summary", err.message);
         });
@@ -42,8 +43,17 @@ const LoginForm = (props) => {
   }
   return (
     <form className={styles.form} onSubmit={formik.handleSubmit}>
+      {props.captchaURL ? <img src={props.captchaURL} alt={""} /> : null}
+      {props.captchaURL ? (
+        <input
+          type={"text"}
+          onChange={formik.handleChange}
+          name={"captcha"}
+          value={formik.values.captcha}
+        />
+      ) : null}
       <input
-        type="text"
+        type={"email"}
         placeholder="email"
         name="email"
         {...formik.getFieldProps("email")}

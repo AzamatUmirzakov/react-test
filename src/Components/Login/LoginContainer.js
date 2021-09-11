@@ -4,6 +4,7 @@ import Login from "./Login";
 
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
+  captchaURL: state.auth.captchaURL,
 });
 
 const LoginContainer = connect(mapStateToProps, {

@@ -109,7 +109,8 @@ const authAPI = {
     const json = await response.json();
     return json;
   },
-  login: async (email, password, remember) => {
+  login: async (email, password, remember, captcha) => {
+    debugger;
     const url = new URL("auth/login", BASE_URL);
 
     const response = await fetch(url, {
@@ -123,6 +124,7 @@ const authAPI = {
         email,
         password,
         rememberMe: remember,
+        captcha,
       }),
     });
     const json = await response.json();
@@ -140,4 +142,18 @@ const authAPI = {
   },
 };
 
-export { usersAPI, authAPI, profileAPI };
+const securityAPI = {
+  getCaptchaURL: async () => {
+    const url = new URL("security/get-captcha-url", BASE_URL);
+    const response = await fetch(url, {
+      headers: {
+        "API-KEY": API_KEY,
+      },
+      credentials: "include",
+    });
+    const json = await response.json();
+    return json;
+  },
+};
+
+export { usersAPI, authAPI, profileAPI, securityAPI };
