@@ -65,6 +65,7 @@ const profileAPI = {
         status: value,
       }),
     });
+    debugger;
     const data = await response.json();
     return data;
   },
@@ -110,7 +111,6 @@ const authAPI = {
     return json;
   },
   login: async (email, password, remember, captcha) => {
-    debugger;
     const url = new URL("auth/login", BASE_URL);
 
     const response = await fetch(url, {

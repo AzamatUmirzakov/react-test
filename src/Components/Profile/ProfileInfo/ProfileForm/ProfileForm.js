@@ -8,7 +8,6 @@ const ProfileForm = ({ profile, setEditMode, updateProfile }) => {
     const response = await updateProfile(values);
     console.log(values, response);
 
-    debugger;
     if (response.resultCode !== 0) {
       formik.setStatus({
         error: response.messages[0],

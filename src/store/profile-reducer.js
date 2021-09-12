@@ -89,7 +89,6 @@ const profileReducer = (state = initialState, action) => {
 
 const setCurrentUser = (userId) => (dispatch) => {
   profileAPI.getProfile(userId).then((data) => {
-    debugger;
     dispatch(setCurrentUserActionCreator(data));
   });
 };
@@ -100,12 +99,12 @@ const getStatus = (userId) => (dispatch) => {
   });
 };
 
-const updateStatus = (status) => (dispatch) => {
-  profileAPI.updateStatus(status).then((response) => {
-    if (response.resultCode === 0) {
-      dispatch(setStatusActionCreator(status));
-    }
-  });
+const updateStatus = (status) => async (dispatch) => {
+  const response = await profileAPI.updateStatus(status);
+  if (response.resultCode === 0) {
+    dispatch(setStatusActionCreator(status));
+  }
+  return response;
 };
 
 const updatePhoto = (photo) => (dispatch) => {
